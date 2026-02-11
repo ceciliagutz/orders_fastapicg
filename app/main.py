@@ -1,12 +1,10 @@
 from fastapi import FastAPI
-from app.infraestructure.database import engine, Base
-from app.infraestructure.models import order_model
+from app.routes import order
 
 app = FastAPI()
 
-@app.on_event("startup")
-def startup():
-    Base.metadata.create_all(bind=engine)
+app.include_router(order.router)
+
 
 @app.get("/")
 def root():

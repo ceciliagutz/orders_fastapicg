@@ -92,3 +92,17 @@ class OrderRepository:
             total_price=db_order.total_price
         )
 
+    @staticmethod
+    def delete(order_id: int) -> bool:
+        db: Session = SessionLocal()
+        order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+
+        if not order:
+            db.close()
+            return False
+
+        db.delete(order)
+        db.commit()
+        db.close()
+        return True
+

@@ -43,3 +43,6 @@ class OrderService:
 
         return OrderRepository.update(order_id, order)
 
+    @staticmethod
+    def delete_order(order_id: int) -> bool:
+        return OrderRepository.delete(order_id)

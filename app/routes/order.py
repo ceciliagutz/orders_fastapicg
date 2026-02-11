@@ -34,3 +34,12 @@ def update_order(order_id: int, order: OrderUpdate):
         raise HTTPException(status_code=404, detail="Order not found")
 
     return updated_order
+
+@router.delete("/{order_id}")
+def delete_order(order_id: int):
+    success = OrderService.delete_order(order_id)
+
+    if not success:
+        return {"message": "Order not found"}
+
+    return {"message": "Order deleted successfully"}

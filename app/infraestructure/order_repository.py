@@ -3,9 +3,9 @@ from app.domain.order import Order
 from app.infraestructure.database import SessionLocal
 from app.infraestructure.order_model import OrderModel
 from typing import List
+from app.domain.order_repository_port import OrderRepositoryPort
 
-
-class OrderRepository:
+class OrderRepository(OrderRepositoryPort):
 
     @staticmethod
     def get_all() -> List[Order]:

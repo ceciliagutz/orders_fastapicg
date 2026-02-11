@@ -64,4 +64,31 @@ class OrderRepository:
             quantity=db_order.quantity,
             total_price=db_order.total_price
         )
+    
+    @staticmethod
+    def update(order_id: int, order: Order) -> Order | None:
+        db: Session = SessionLocal()
+
+        db_order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+
+        if not db_order:
+            db.close()
+            return None
+
+        db_order.customer_name = order.customer_name
+        db_order.product = order.product
+        db_order.quantity = order.quantity
+        db_order.total_price = order.total_price
+
+        db.commit()
+        db.refresh(db_order)
+        db.close()
+
+        return Order(
+            id=db_order.id,
+            customer_name=db_order.customer_name,
+            product=db_order.product,
+            quantity=db_order.quantity,
+            total_price=db_order.total_price
+        )
 

@@ -13,3 +13,8 @@ class OrderCreate(BaseModel):
     customer_name: str
     product: str
     quantity: int
+
+class OrderUpdate(BaseModel):
+    customer_name: str
+    product: str
+    quantity: int

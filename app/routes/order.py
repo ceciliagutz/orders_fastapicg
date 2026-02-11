@@ -3,6 +3,8 @@ from app.application.order_service import OrderService
 from app.domain.order import Order, OrderCreate
 from typing import List
 from fastapi import HTTPException
+from app.domain.order import Order, OrderCreate, OrderUpdate
+
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
 
@@ -23,3 +25,12 @@ def get_order(order_id: int):
 @router.post("/", response_model=Order)
 def create_order(order: OrderCreate):
     return OrderService.create_order(order)
+
+@router.put("/{order_id}", response_model=Order)
+def update_order(order_id: int, order: OrderUpdate):
+    updated_order = OrderService.update_order(order_id, order)
+
+    if not updated_order:
+        raise HTTPException(status_code=404, detail="Order not found")
+
+    return updated_order

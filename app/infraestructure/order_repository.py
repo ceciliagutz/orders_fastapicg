@@ -47,3 +47,21 @@ class OrderRepository:
             quantity=db_order.quantity,
             total_price=db_order.total_price
         )
+    @staticmethod
+    def get_by_id(order_id: int) -> Order | None:
+        db: Session = SessionLocal()
+
+        db_order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+        db.close()
+
+        if not db_order:
+            return None
+
+        return Order(
+            id=db_order.id,
+            customer_name=db_order.customer_name,
+            product=db_order.product,
+            quantity=db_order.quantity,
+            total_price=db_order.total_price
+        )
+

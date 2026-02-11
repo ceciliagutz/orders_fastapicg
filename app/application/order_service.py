@@ -23,3 +23,8 @@ class OrderService:
         )
 
         return OrderRepository.create(order)
+    
+    @staticmethod
+    def get_order_by_id(order_id: int) -> Order | None:
+        return OrderRepository.get_by_id(order_id)
+
